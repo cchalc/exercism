@@ -39,6 +39,13 @@ func PrependItems(slice []int, value ...int) []int {
 }
 
 // RemoveItem removes an item from a slice by modifying the existing slice.
-func RemoveItem(slice []int, index int) []int {
-	panic("Please implement the RemoveItem function")
+func RemoveItem(s []int, index int) []int {
+	var temp []int
+	if index < len(s)-len(s) || index > len(s)-1 {
+		return s
+	} else {
+		temp = append(s[:index], s[index+1:]...)
+		s = temp
+	}
+	return s
 }
