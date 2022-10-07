@@ -11,8 +11,8 @@ type Car struct {
 // NewCar creates a new remote controlled car with full battery and given specifications.
 func NewCar(speed, batteryDrain int) Car {
 	return Car{
-		batttery:     100,
-		batteryDrain: batterDrain,
+		battery:      100,
+		batteryDrain: batteryDrain,
 		speed:        speed,
 		distance:     0,
 	}
@@ -33,10 +33,21 @@ func NewTrack(distance int) Track {
 // Drive drives the car one time. If there is not enough battery to drive one more time,
 // the car will not move.
 func Drive(car Car) Car {
-	return Car{}
+	if car.battery < car.batteryDrain {
+		return car
+	}
+
+	return Car{
+		battery:      car.battery - car.batteryDrain,
+		batteryDrain: car.batteryDrain,
+		speed:        car.speed,
+		distance:     car.distance + car.speed,
+	}
 }
 
 // CanFinish checks if a car is able to finish a certain track.
 func CanFinish(car Car, track Track) bool {
-	panic("Please implement the CanFinish function")
+	t := car.battery / car.batteryDrain
+	md := t * car.speed
+	return md >= track.distance
 }
